@@ -1,3 +1,15 @@
+/*Joke Counter. This is a counter programmed for Keyestudio Multipurpose Shield for Arduino UNO.
+ * This counter simulates a hollywood movie bomb,with a 7-segment BCD panel showing the remaining time with format MM:SS
+ * Each second the time is reduced in one unit. At same time, a buzzer plays a sound
+ * 
+ * If the user press the first button, the time interval is reduced to 100 ms
+ * If the second button is pressed, the minutes are setted to 0
+ * 
+ * When counter ends, the buzzer plays a continous sound. The sound don't ends until button 3 is pressed, the which restart the counter
+ * 
+ */
+
+
 
 #define CLEAR -1
 
