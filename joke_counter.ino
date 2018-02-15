@@ -76,9 +76,11 @@ void setup ()
   pinMode(buzzer,OUTPUT);
 }
 
+
+bool stop = false;
 void loop(){
   int wait = 1000;
-
+      
     for(int j = 10; j >= 0; j--){
       for(int i = 59; i >= 0; i--)
       {
@@ -96,7 +98,10 @@ void loop(){
 
           //If button 2 is pressed, the minutes are setted to 0
           else if(digitalRead(key2) == LOW) j = 0;
-    
+
+          //If button 3 is pressed, the counter stops
+          if (digitalRead(key3) == LOW) stop=true;
+
           
           //Show Minutes
           BCD_write(j/10, 0);         
@@ -107,20 +112,23 @@ void loop(){
           BCD_write(i%10, 3);
           BCD_write(i/10, 2);
           
-          wait_end = millis();
-
-        //Don't update BCD panel until reach 1 second
+          //Keeps current timing if stopped
+          if(!stop)wait_end = millis();
+          
+          //Don't update BCD panel until reach 1 second
         }while(wait_end - wait_start < wait);
-        
+
        }//end for i
      }//end for j
 
-    //End counter
+
+    //Clears display to advance and tick tone 
     BCD_write(CLEAR, 0);
     tone(buzzer, 1);
+
 
     //Don't restart counter until button 3 is pressed
     while(digitalRead(key3) == HIGH);
 
-}
 
+}//void loop
